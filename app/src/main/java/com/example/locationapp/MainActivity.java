@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Gson gson = new Gson();
             mService.mSocket.emit("GPS_DATA",gson.toJson(new NewLocation(event.getLocation().getLatitude(), event.getLocation().getLongitude(),
                     event.getLocation().getAltitude(), new Date(), event.getLocation())));
+            mService.mSocket2.emit("GPS_DATA",gson.toJson(new NewLocation(event.getLocation().getLatitude(), event.getLocation().getLongitude(),
+                    event.getLocation().getAltitude(), new Date(), event.getLocation())));
         }
     }
 }

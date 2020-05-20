@@ -58,10 +58,11 @@ public class BackgroundService extends Service {
     private Location mLocation;
 
     public Socket mSocket;
+    public Socket mSocket2;
     {
         try {
             mSocket = IO.socket("http://173.82.106.105/");
-//            mSocket = IO.socket("https://drone-server-lk.herokuapp.com/");
+            mSocket2 = IO.socket("https://173.82.173.9/");
         } catch (URISyntaxException e) {}
     }
 
@@ -94,6 +95,7 @@ public class BackgroundService extends Service {
         }
 
         mSocket.connect();
+        mSocket2.connect();
     }
 
     @Override
@@ -159,6 +161,8 @@ public class BackgroundService extends Service {
 //            mNotificationMnager.notify(NOTI_ID, getNotification());
             Gson gson = new Gson();
             mSocket.emit("GPS_DATA",gson.toJson(new NewLocation(lastLocation.getLatitude(), lastLocation.getLongitude(),
+                    lastLocation.getAltitude(), new Date(), lastLocation)));
+            mSocket2.emit("GPS_DATA",gson.toJson(new NewLocation(lastLocation.getLatitude(), lastLocation.getLongitude(),
                     lastLocation.getAltitude(), new Date(), lastLocation)));
         }
     }
